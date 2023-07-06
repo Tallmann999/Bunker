@@ -8,7 +8,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - 
@@ -53,11 +53,11 @@ TagManager:
   - name: Doors_04
     uniqueID: 3029697807
     locked: 0
-  - name: Platform_05
-    uniqueID: 3659939425
-    locked: 0
-  - name: Player_Interact_06
+  - name: Player_Interact_05
     uniqueID: 683974039
+    locked: 0
+  - name: Platform_06
+    uniqueID: 3659939425
     locked: 0
   - name: Flont_Decor_07
     uniqueID: 3452904677

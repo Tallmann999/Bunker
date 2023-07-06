@@ -25,11 +25,12 @@ public class PlayerInput : MonoBehaviour
 
     private void Attack()
     {
-        const string Fire = "Fire1";
-
         if (Input.GetMouseButtonDown(0))
         {
-            _player.CurrentWeapon.Shoot();
+            if (_mover.IsLadder == false)
+            {
+              _player.CurrentWeapon.Shoot();
+            }
         }
     }
 

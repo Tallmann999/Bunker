@@ -18,13 +18,9 @@ public class Bullet : MonoBehaviour
 
     private void Update()
     {
+
         _rigidbody2D.velocity = transform.right * _speed;
         Destroy(gameObject, _maxDistanse);
-    }
-
-    private void Move()
-    {
-        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

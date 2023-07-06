@@ -9,12 +9,6 @@ public class RotationWeapon : MonoBehaviour
 
     private Vector3 _localScale;
 
-
-    private void Start()
-    {
-        //_playerMover = GetComponent<PlayerMover>();
-    }
-
     private void Update()
     {
         Vector3 diferrents = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
@@ -37,5 +31,4 @@ public class RotationWeapon : MonoBehaviour
 
         transform.localScale = _localScale;
     }
-
 }

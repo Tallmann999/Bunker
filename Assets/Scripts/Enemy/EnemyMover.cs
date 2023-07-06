@@ -16,6 +16,9 @@ public class EnemyMover : MonoBehaviour
     private int _currentPointIndex;
     private float _speed = 2f;
     private bool _isMoving = false;
+    private bool _isRightVector=false;
+
+    public bool IsRightVector => _isRightVector; 
 
     private void Start()
     {
@@ -31,6 +34,11 @@ public class EnemyMover : MonoBehaviour
         WalkAnimation();
     }
 
+    public void ResetMover()
+    {
+        // —делать ћетод который будет стопорить движение персонажа, а потом будет производитьс€ выстрел
+    }
+
     private void MoveToPoints()
     {
         Transform target = _points[_currentPointIndex];
@@ -40,11 +48,13 @@ public class EnemyMover : MonoBehaviour
         if (transform.position == target.position)
         {
             _spriteRenderer.flipX = true;
+            _isRightVector = false;
             _currentPointIndex++;
 
             if (_currentPointIndex >= _points.Length)
             {
                 _currentPointIndex = 0;
+                _isRightVector = true;
                 _spriteRenderer.flipX = false;
             }
         }

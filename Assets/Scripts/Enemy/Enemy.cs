@@ -7,7 +7,6 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private int _health;
     [SerializeField] private Player _target; // Впеменно цель врага это плеер
-
     public Player Target => _target;
 
     public  void TakeDamage(int damage)
@@ -27,5 +26,7 @@ public class Enemy : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+
 
 }

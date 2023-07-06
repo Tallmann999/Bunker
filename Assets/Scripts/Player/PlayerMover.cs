@@ -18,14 +18,16 @@ public class PlayerMover : MonoBehaviour
 
     private bool _isGrounded;
     private bool _isMoving = false;
+    private bool _isLadder = false;
     private int _maxMovingValue = 2;
     private int _minMovingValue = 1;
     private float _rayLength = 0.2f;
     private Vector2 _direction;
-    private float _ledderSpeed = 1.5f;
+    private float _ledderSpeed = 0.8f;
 
     public bool IsGrounded => _isGrounded;
     public bool IsMoving => _isMoving;
+    public bool IsLadder => _isLadder;
 
 
     private void Start()
@@ -47,10 +49,12 @@ public class PlayerMover : MonoBehaviour
 
         if (ledderStatus)
         {
+            _isLadder = true;
             _player.ToggleActiveSpriteWeapon(false);
         }
         else
         {
+            _isLadder = false;
             _player.ToggleActiveSpriteWeapon(true);
         }
     }
@@ -66,7 +70,6 @@ public class PlayerMover : MonoBehaviour
         Move(inputIndex);
 
         _isMoving = true;
-
         if (_direction.x != 0)
         {
             Flip();
