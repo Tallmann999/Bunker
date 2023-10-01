@@ -18,7 +18,7 @@ public class InteractionDetector : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent(out Ladder ladder))
         {
-            _mover.LadderMove(RigidbodyType2D.Dynamic,false);
+            _mover.LadderMove(RigidbodyType2D.Dynamic, false);
         }
     }
 }

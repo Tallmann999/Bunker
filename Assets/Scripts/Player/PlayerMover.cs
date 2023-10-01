@@ -15,15 +15,19 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private Transform _groundCheck;
     [SerializeField] private float _jumpHeight;
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip[] _footsteps;
+    [SerializeField] private AudioClip _jumpSound;
+    [SerializeField] private AudioClip _ladderMove;
 
     private bool _isGrounded;
     private bool _isMoving = false;
     private bool _isLadder = false;
     private int _maxMovingValue = 2;
     private int _minMovingValue = 1;
-    private float _rayLength = 0.2f;
     private Vector2 _direction;
-    private float _ledderSpeed = 0.8f;
+    private float _rayLength = 0.2f;
+    private float _ladderSpeed = 0.8f;
 
     public bool IsGrounded => _isGrounded;
     public bool IsMoving => _isMoving;
@@ -32,7 +36,9 @@ public class PlayerMover : MonoBehaviour
 
     private void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        _audioSource.clip = _footsteps[Random.Range(0,_footsteps.Length)];
     }
 
     private void Update()
@@ -40,36 +46,48 @@ public class PlayerMover : MonoBehaviour
         CheckGround();
     }
 
-    public void LadderMove(RigidbodyType2D Toggle, bool ledderStatus)
+    public void LadderMove(RigidbodyType2D Toggle, bool ladderStatus)
     {
         _direction.y = Input.GetAxis("Vertical");
-        _animator.SetBool("LadderMove", ledderStatus);
-        transform.Translate(Vector3.up * _direction.y * _speed * _ledderSpeed * Time.deltaTime);
+        _animator.SetBool("LadderMove", ladderStatus);
+        // Проработать звук когда персонаж лезет по лестнице
+        transform.Translate(Vector3.up * _direction.y * _speed * _ladderSpeed * Time.deltaTime);
         _rigidbody2D.bodyType = Toggle;
+       
 
-        if (ledderStatus)
+        if (ladderStatus)
         {
             _isLadder = true;
-            _player.ToggleActiveSpriteWeapon(false);
+            _player.TooggleActiveSpriteWeapon(false);
+           
         }
         else
         {
             _isLadder = false;
-            _player.ToggleActiveSpriteWeapon(true);
+            _player.TooggleActiveSpriteWeapon(true);
+            
         }
+    }
+
+    public void FootstepSound()
+    {
+        _audioSource.clip = _footsteps[Random.Range(0, _footsteps.Length)];
+        _audioSource.Play();
     }
 
     public void AnimationJump()
     {
         _animator.SetTrigger(Jumps);
+        _audioSource.clip = _jumpSound;
+        _audioSource.Play();
         JumpSetting();
     }
 
     public void AnimationMove(float inputIndex)
     {
         Move(inputIndex);
-
         _isMoving = true;
+
         if (_direction.x != 0)
         {
             Flip();
@@ -113,5 +131,11 @@ public class PlayerMover : MonoBehaviour
     {
         _direction.x = inputIndex;
         _rigidbody2D.velocity = new Vector2(_direction.x * _speed, _rigidbody2D.velocity.y);
+        //_rigidbody2D.AddForce(new Vector2(_direction.x * _speed*Time.deltaTime, _rigidbody2D.velocity.y));
+    }
+
+    private void DieAnimation()
+    {
+
     }
 }

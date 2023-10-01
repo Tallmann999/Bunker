@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5096908861598628685
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9050082273335845218}
+  m_Layer: 3
+  m_Name: DropsSleeve
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9050082273335845218
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5096908861598628685}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.608, y: 0.03, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5582827352671186556}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5582827351061261699
 GameObject:
   m_ObjectHideFlags: 0
@@ -41,7 +71,9 @@ GameObject:
   - component: {fileID: 5582827352671186556}
   - component: {fileID: 5582827352671186557}
   - component: {fileID: 5582827352671186558}
-  - component: {fileID: 5582827352671186559}
+  - component: {fileID: 4373862626929794720}
+  - component: {fileID: 1432754034978822857}
+  - component: {fileID: 1623001111511666446}
   m_Layer: 3
   m_Name: Akm
   m_TagString: Untagged
@@ -61,6 +93,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5582827351061261700}
+  - {fileID: 9050082273335845218}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -102,7 +135,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -635027871
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 1
   m_Sprite: {fileID: -4487152379067421788, guid: b9b5556c3ff4aab4da8116eb3a517ef6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -129,7 +162,118 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _offset: 0
   _playerMover: {fileID: 0}
---- !u!114 &5582827352671186559
+--- !u!114 &4373862626929794720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5582827352671186555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e87c8a720fb73204fb36111289614a16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MagazineBulletsCount: {fileID: 0}
+  MaxBulletsCount: {fileID: 0}
+  _currentWeapon: {fileID: 0}
+--- !u!82 &1432754034978822857
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5582827352671186555}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &1623001111511666446
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,12 +286,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Label: Akm
-  _icon: {fileID: 4375514946458600780, guid: b9b5556c3ff4aab4da8116eb3a517ef6, type: 3}
-  MagazineSize: 0
-  "\u0421urrentMagazineBulletsCount": 0
-  MaxBullet: 0
-  ReloadLastTime: 0
+  Icon: {fileID: 21300000, guid: 3104d8bd680caef4080341a4f6af1846, type: 3}
+  MaxBullet: 180
+  "\u0421urrentMagazineBulletsCount": 40
   Prefab: {fileID: 4255807936075712525, guid: bf81130bacd38ad46a6741717564502d, type: 3}
-  BulletTips: {fileID: 0}
+  BulletTipsPrefabs: {fileID: 3912618761056143684, guid: b144954a28b0dec42baa94449c9ad77e, type: 3}
   ShootPointPosition: {fileID: 5582827351061261700}
-  ShootEffect: {fileID: 0}
+  DropTips: {fileID: 9050082273335845218}
+  AudioSource: {fileID: 1432754034978822857}
+  OneShot: {fileID: 8300000, guid: dd3411dfb1efeaa42b0bc299411e10be, type: 3}
+  SleeveDrop: {fileID: 8300000, guid: f9609c7c501b31f459af28be2eda84b3, type: 3}
+  Reloading: {fileID: 8300000, guid: 51f8fcb6326bfe44f90e02ce2eca2d77, type: 3}
+  _currentMagazineBulletsCount: 0
+  _maxBullet: 180
+  _magazineSize: 20
+  _reloadLastTime: 1
