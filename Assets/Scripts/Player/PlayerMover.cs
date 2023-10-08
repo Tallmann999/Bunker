@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class PlayerMover : MonoBehaviour
 {
-    const string Horizontal = "Horizontal";
+    //const string Horizontal = "Horizontal";
     const string State = "State";
     const string Jumps = "Jump";
 
@@ -17,8 +17,8 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private float _jumpHeight;
     [SerializeField] private AudioSource _audioSource;
     [SerializeField] private AudioClip[] _footsteps;
+    [SerializeField] private AudioClip[] _ladderMove;
     [SerializeField] private AudioClip _jumpSound;
-    [SerializeField] private AudioClip _ladderMove;
 
     private bool _isGrounded;
     private bool _isMoving = false;
@@ -39,6 +39,17 @@ public class PlayerMover : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _audioSource.clip = _footsteps[Random.Range(0,_footsteps.Length)];
+        Time.timeScale = 1;
+    }
+
+    private void OnEnable()
+    {
+        _player.Die += DieAnimation;
+    }
+
+    private void OnDisable()
+    {
+        _player.Die -= DieAnimation;
     }
 
     private void Update()
@@ -50,28 +61,31 @@ public class PlayerMover : MonoBehaviour
     {
         _direction.y = Input.GetAxis("Vertical");
         _animator.SetBool("LadderMove", ladderStatus);
-        // Проработать звук когда персонаж лезет по лестнице
+
         transform.Translate(Vector3.up * _direction.y * _speed * _ladderSpeed * Time.deltaTime);
         _rigidbody2D.bodyType = Toggle;
-       
 
         if (ladderStatus)
         {
             _isLadder = true;
             _player.TooggleActiveSpriteWeapon(false);
-           
         }
         else
         {
             _isLadder = false;
             _player.TooggleActiveSpriteWeapon(true);
-            
         }
     }
 
-    public void FootstepSound()
+    public void FootStepsSound()
     {
         _audioSource.clip = _footsteps[Random.Range(0, _footsteps.Length)];
+        _audioSource.Play();
+    }
+
+    public void LadderStepsSound()
+    {
+        _audioSource.clip = _ladderMove[Random.Range(0, _ladderMove.Length)];
         _audioSource.Play();
     }
 
@@ -131,11 +145,11 @@ public class PlayerMover : MonoBehaviour
     {
         _direction.x = inputIndex;
         _rigidbody2D.velocity = new Vector2(_direction.x * _speed, _rigidbody2D.velocity.y);
-        //_rigidbody2D.AddForce(new Vector2(_direction.x * _speed*Time.deltaTime, _rigidbody2D.velocity.y));
     }
 
-    private void DieAnimation()
+    private void DieAnimation(bool activation)
     {
+        _animator.SetBool("Die", activation);
 
     }
 }

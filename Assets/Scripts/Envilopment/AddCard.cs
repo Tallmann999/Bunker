@@ -7,9 +7,8 @@ public class AddCard : MonoBehaviour
 
     [SerializeField] private AudioSource _currentSound;
     [SerializeField] private AudioClip _pickupSound;
-     private Card _exitCard;
 
-    private Coroutine _activeCoroutine;
+    private Coroutine _activeCoroutine = null;
 
     private void Start()
     {
@@ -36,7 +35,7 @@ public class AddCard : MonoBehaviour
         {
             _currentSound.clip = _pickupSound;
             _currentSound.Play();
-            player.TakeCard(_exitCard);
+            player.TakeCard();
             yield return new WaitForSeconds(0.4f);
             _currentSound.Stop();
             Destroy(gameObject);

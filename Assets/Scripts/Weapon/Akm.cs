@@ -19,14 +19,65 @@ public class Akm : Weapon
 
     public override void Reload()
     {
-    
+        int remainBulletCount = 0;
+
+        if (MaxBullet > 0)
+        {
+            if (ÑurrentMagazineBulletsCount == 0)
+            {
+                MaxBullet -= _magazineSize;
+                AudioSource.PlayOneShot(Reloading);
+                ÑurrentMagazineBulletsCount = _magazineSize;
+            }
+            else
+            {
+                if (MaxBullet < ÑurrentMagazineBulletsCount)
+                {
+                    remainBulletCount = _magazineSize - ÑurrentMagazineBulletsCount;
+
+                    if (MaxBullet >= remainBulletCount)
+                    {
+                        MaxBullet -= remainBulletCount;
+                        AudioSource.PlayOneShot(Reloading);
+                        ÑurrentMagazineBulletsCount += remainBulletCount;
+                    }
+                    else
+                    {
+                        ÑurrentMagazineBulletsCount += MaxBullet;
+                        AudioSource.PlayOneShot(Reloading);
+                        MaxBullet = 0;
+                    }
+                }
+                else
+                {
+                    remainBulletCount = _magazineSize - ÑurrentMagazineBulletsCount;
+                    MaxBullet -= remainBulletCount;
+                    AudioSource.PlayOneShot(Reloading);
+                    ÑurrentMagazineBulletsCount += remainBulletCount;
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("Ïàòðîíû êîí÷èëèñü");
+        }
     }
 
     public override void Shoot()
     {
-        AudioSource.PlayOneShot(OneShot);
-        CreateSleeve();
-        Bullet bullet = Instantiate(Prefab,ShootPointPosition.position,transform.rotation);
+        if (ÑurrentMagazineBulletsCount > 0)
+        {
+            AudioSource.PlayOneShot(OneShot);
+            CreateSleeve();
+            Bullet bullet = Instantiate(Prefab, ShootPointPosition.position, transform.rotation);
+            ÑurrentMagazineBulletsCount--;
+
+        }
+        else
+        {
+            Reload();
+        }
+
     }
     private void CreateSleeve()
     {

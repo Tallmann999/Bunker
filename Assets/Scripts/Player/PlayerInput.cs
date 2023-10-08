@@ -20,10 +20,10 @@ public class PlayerInput : MonoBehaviour
     {
         MoveControl();
         JumpControl();
-        Attack();
+        WeaponInput();
     }
 
-    private void Attack()
+    private void WeaponInput()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -31,6 +31,20 @@ public class PlayerInput : MonoBehaviour
             {
               _player.CurrentWeapon.Shoot();
             }
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (_mover.IsLadder == false)
+            {
+                _player.CurrentWeapon.Reload();
+            }
+        }
+
+        if (Input.GetMouseButtonDown(2))
+        {
+            _player.PreviesWeapon();// не проверял следующее оружие.
+            Debug.Log("Меняет следующее оружие");
         }
     }
 

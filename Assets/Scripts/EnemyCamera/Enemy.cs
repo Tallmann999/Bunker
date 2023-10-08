@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour,IDamagable
 {
     [SerializeField] private int _health;
     [SerializeField] private GameObject _detectorObject;

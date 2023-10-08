@@ -12,7 +12,6 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField] protected Sleeve BulletTipsPrefabs;
     [SerializeField] protected Transform ShootPointPosition;
     [SerializeField] protected Transform DropTips;
-    //[SerializeField] protected ParticleSystem ShootEffect;
 
     [SerializeField] protected AudioSource AudioSource;
     [SerializeField] protected AudioClip OneShot;
