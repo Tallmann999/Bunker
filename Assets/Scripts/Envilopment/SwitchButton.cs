@@ -1,13 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SwitchButton : MonoBehaviour
 {
-    public bool ButtonOn { get; set; } = false; 
 
     [SerializeField] private SpriteRenderer _currentSprite;
     [SerializeField] private SpriteRenderer _onSpriteStatusSprite;
+
+    public bool ButtonOn { get; set; } = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

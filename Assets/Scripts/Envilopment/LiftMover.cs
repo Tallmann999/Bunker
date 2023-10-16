@@ -8,6 +8,7 @@ public class LiftMover : MonoBehaviour
 
     private Transform[] _points;
     private int _currentPointIndex;
+    private float _movingStep = 0.5f;
 
     private void Start()
     {
@@ -29,7 +30,7 @@ public class LiftMover : MonoBehaviour
         _soundEffectZone.enabled = true;
 
         Transform target = _points[_currentPointIndex];
-        transform.position = Vector3.MoveTowards(transform.position, target.position, 0.5f * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, target.position, _movingStep * Time.deltaTime);
 
         if (transform.position == target.position)
         {
@@ -39,7 +40,6 @@ public class LiftMover : MonoBehaviour
             {
                 _currentPointIndex = 0;
             }
-
         }
     }
 

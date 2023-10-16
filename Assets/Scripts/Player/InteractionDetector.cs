@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InteractionDetector : MonoBehaviour
@@ -8,9 +6,9 @@ public class InteractionDetector : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.gameObject.TryGetComponent(out Ladder ladder))
+        if (collision.gameObject.TryGetComponent(out Ladder ladder))
         {
-            _mover.LadderMove(RigidbodyType2D.Kinematic,true);
+            _mover.LadderMove(RigidbodyType2D.Kinematic, true);
         }
     }
 

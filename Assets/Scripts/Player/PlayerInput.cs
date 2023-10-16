@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Player))]
@@ -29,7 +26,7 @@ public class PlayerInput : MonoBehaviour
         {
             if (_mover.IsLadder == false)
             {
-              _player.CurrentWeapon.Shoot();
+                _player.CurrentWeapon.Shoot();
             }
         }
 
@@ -39,12 +36,6 @@ public class PlayerInput : MonoBehaviour
             {
                 _player.CurrentWeapon.Reload();
             }
-        }
-
-        if (Input.GetMouseButtonDown(2))
-        {
-            _player.PreviesWeapon();// не проверял следующее оружие.
-            Debug.Log("Меняет следующее оружие");
         }
     }
 
@@ -60,6 +51,6 @@ public class PlayerInput : MonoBehaviour
     {
         const string Horizontal = "Horizontal";
 
-       _mover.AnimationMove(Input.GetAxis(Horizontal));
+        _mover.AnimationMove(Input.GetAxis(Horizontal));
     }
 }

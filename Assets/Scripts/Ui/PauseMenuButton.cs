@@ -1,12 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseMenuButton : MonoBehaviour
 {
-   public void OnSettingMenuButton()
+    public void OnSettingMenuButton()
     {
-        SceneManager.LoadScene("PauseMenu");
+        const string PauseMenu = "PauseMenu";
+
+        SceneManager.LoadScene(PauseMenu);
     }
 }

@@ -1,6 +1,3 @@
 using UnityEngine;
 
-public class Card : MonoBehaviour
-{
-
-}
+public class Card : MonoBehaviour { }

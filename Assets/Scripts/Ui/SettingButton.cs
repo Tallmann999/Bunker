@@ -5,7 +5,9 @@ public class SettingButton : MonoBehaviour
 {
     public void OnMenuButton()
     {
-        SceneManager.LoadScene("Level-01-MainMenu");
+        const string MainMenu = "Level-01-MainMenu";
+
+        SceneManager.LoadScene(MainMenu);
     }
 
     public void OnExitButton()
@@ -15,6 +17,8 @@ public class SettingButton : MonoBehaviour
 
     public void OnResetMenuButton()
     {
-        SceneManager.LoadScene("Level-02-Bunker");
+        const string Level02 = "Level-02-Bunker";
+
+        SceneManager.LoadScene(Level02);
     }
 }

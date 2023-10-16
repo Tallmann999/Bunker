@@ -64,7 +64,7 @@ MonoBehaviour:
   _baseSound: {fileID: 940996044474656947}
   _sounEffect: {fileID: 8300000, guid: fe526ddcf7acd9c429f78ddd553b7955, type: 3}
   _minVolum: 0.01
-  _maxVolum: 0.05
+  _maxVolum: 0.1
 --- !u!82 &940996044474656947
 AudioSource:
   m_ObjectHideFlags: 0
@@ -77,7 +77,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: fe526ddcf7acd9c429f78ddd553b7955, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.23
+  m_Volume: 0
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -206,7 +206,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 174f4732d0967a34ba0430f7067532c9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -5,26 +5,14 @@ using UnityEngine;
 public class EnemyShooting : MonoBehaviour
 {
     [SerializeField] private Weapon _currentWeapon;
-    [SerializeField] private float _deleyAttack;
+    [SerializeField] private Player _player;
     [SerializeField] private EnemyRotateDetector _enemyRotateDetector;
-    [SerializeField] private  Player _player;
+    [SerializeField] private float _deleyAttack;
     [SerializeField] private float _shootingMovespeed;
+    [SerializeField] private float _rotationModific;
 
-    public float RotationModific;
-
-    private Coroutine _activeCorutine;
+    private Coroutine _activeCorutine = null;
     private float _lastAttackTime;
-    private  bool Tooggle;
-
-    private void Start()
-    {
-        _enemyRotateDetector = GetComponent<EnemyRotateDetector>();
-    }
-
-    private void Update()
-    {
-        RotateToTarget(true);
-    }
 
     private void OnEnable()
     {
@@ -36,10 +24,18 @@ public class EnemyShooting : MonoBehaviour
         _enemyRotateDetector.OnShoot -= Shooting;
     }
 
+    private void Start()
+    {
+        _enemyRotateDetector = GetComponent<EnemyRotateDetector>();
+    }
+
+    private void Update()
+    {
+        RotateToTarget(true);
+    }
+
     private void Shooting(bool shoot)
     {
-        Tooggle = shoot;
-
         if (_activeCorutine != null)
         {
             StopCoroutine(_activeCorutine);
@@ -64,12 +60,13 @@ public class EnemyShooting : MonoBehaviour
         }
     }
 
-    public void RotateToTarget(bool shootStatus)
+    private void RotateToTarget(bool shootStatus)
     {
         if (shootStatus)
         {
             Vector3 vectorToTarget = _player.transform.position - transform.position;
-            float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - RotationModific;
+            float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - _rotationModific;
+
             Quaternion angleTarget = Quaternion.AngleAxis(angle, Vector3.forward);
             transform.rotation = Quaternion.Slerp(transform.rotation, angleTarget, Time.deltaTime * _shootingMovespeed);
         }
