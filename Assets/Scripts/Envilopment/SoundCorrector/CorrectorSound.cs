@@ -8,9 +8,9 @@ public class CorrectorSound : MonoBehaviour
     [SerializeField] private float _minVolum;
     [SerializeField] private float _maxVolum;
 
+    private Coroutine _activeCorutine = null;
     private float _fadeSpeed = 0.3f;
     private float _targetVolume;
-    private Coroutine _activeCorutine = null;
 
     public void IncreasesSound()
     {

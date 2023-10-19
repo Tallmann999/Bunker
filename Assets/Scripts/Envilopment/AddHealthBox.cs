@@ -1,43 +1,46 @@
 using System.Collections;
 using UnityEngine;
 
-public class AddHealthBox : MonoBehaviour
+public class AddHealthBox : MonoBehaviour, IInteractable
 {
-    [SerializeField] private AudioSource _healthSound;
+    [SerializeField] private AudioSource _baseSound;
     [SerializeField] private AudioClip _pickupSound;
     [SerializeField] private int _poitionHealthCount;
 
-    private Coroutine _activeCoroutine;
+    private Coroutine _activeCoroutine = null;
+    private WaitForSeconds _sleep = new WaitForSeconds(0.4f);
 
-    private void Start()
-    {
-        _healthSound = GetComponent<AudioSource>();
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.TryGetComponent(out Player player))
-        {
-           if(_activeCoroutine != null)
-            {
-                StopCoroutine(_activeCoroutine);
-            }
-             _activeCoroutine= StartCoroutine(PlayAndDie(player));
-
-        }
-    }
-
-    private IEnumerator PlayAndDie(Player player)
+    public IEnumerator PlaySoundAndDie(Player player)
     {
         bool _isPlay = true;
 
         while (_isPlay)
         {
-            _healthSound.clip = _pickupSound;
-            _healthSound.Play();
+            _baseSound.clip = _pickupSound;
+            _baseSound.Play();
             player.Heal(_poitionHealthCount);
-            yield return new WaitForSeconds(0.4f);
-            _healthSound.Stop();
+            yield return _sleep;
+            _baseSound.Stop();
             Destroy(gameObject);
         }
     }
+
+    private void Start()
+    {
+        _baseSound = GetComponent<AudioSource>();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out Player player))
+        {
+            if (_activeCoroutine != null)
+            {
+                StopCoroutine(_activeCoroutine);
+            }
+
+            _activeCoroutine = StartCoroutine(PlaySoundAndDie(player));
+        }
+    }
+
 }

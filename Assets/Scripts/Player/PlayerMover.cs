@@ -2,12 +2,9 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(AudioSource))]
 public class PlayerMover : MonoBehaviour
 {
-    //const string Horizontal = "Horizontal";
-    const string State = "State";
-    const string Jumps = "Jump";
-
     [SerializeField] private float _speed;
     [SerializeField] private Rigidbody2D _rigidbody2D;
     [SerializeField] private Player _player;
@@ -20,12 +17,12 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private AudioClip[] _ladderMove;
     [SerializeField] private AudioClip _jumpSound;
 
+    private Vector2 _direction;
     private bool _isGrounded;
     private bool _isMoving = false;
     private bool _isLadder = false;
     private int _maxMovingValue = 2;
     private int _minMovingValue = 1;
-    private Vector2 _direction;
     private float _rayLength = 0.2f;
     private float _ladderSpeed = 0.8f;
 
@@ -38,7 +35,7 @@ public class PlayerMover : MonoBehaviour
     {
         _audioSource = GetComponent<AudioSource>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
-        _audioSource.clip = _footsteps[Random.Range(0,_footsteps.Length)];
+        _audioSource.clip = _footsteps[Random.Range(0, _footsteps.Length)];
         Time.timeScale = 1;
     }
 
@@ -59,8 +56,11 @@ public class PlayerMover : MonoBehaviour
 
     public void LadderMove(RigidbodyType2D Toggle, bool ladderStatus)
     {
-        _direction.y = Input.GetAxis("Vertical");
-        _animator.SetBool("LadderMove", ladderStatus);
+        const string Vertical = "Vertical";
+        const string LadderMoves = "LadderMove";
+
+        _direction.y = Input.GetAxis(Vertical);
+        _animator.SetBool(LadderMoves, ladderStatus);
 
         transform.Translate(Vector3.up * _direction.y * _speed * _ladderSpeed * Time.deltaTime);
         _rigidbody2D.bodyType = Toggle;
@@ -91,6 +91,8 @@ public class PlayerMover : MonoBehaviour
 
     public void AnimationJump()
     {
+        const string Jumps = "Jump";
+
         _animator.SetTrigger(Jumps);
         _audioSource.clip = _jumpSound;
         _audioSource.Play();
@@ -99,6 +101,8 @@ public class PlayerMover : MonoBehaviour
 
     public void AnimationMove(float inputIndex)
     {
+        const string State = "State";
+
         Move(inputIndex);
         _isMoving = true;
 
@@ -124,7 +128,7 @@ public class PlayerMover : MonoBehaviour
         _rigidbody2D.AddForce(Vector2.up * _jumpHeight, ForceMode2D.Impulse);
     }
 
-    private  void Flip()
+    private void Flip()
     {
         if (_direction.x > 0)
         {
@@ -149,7 +153,9 @@ public class PlayerMover : MonoBehaviour
 
     private void DieAnimation(bool activation)
     {
-        _animator.SetBool("Die", activation);
+        const string Die = "Die";
+
+        _animator.SetBool(Die, activation);
 
     }
 }

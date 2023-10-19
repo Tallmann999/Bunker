@@ -1,20 +1,19 @@
 using System.Collections;
 using UnityEngine;
-public class Enemy : MonoBehaviour,IDamagable
+
+[RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(ParticleSystem))]
+public class Enemy : MonoBehaviour, IDamagable
 {
-    [SerializeField] private int _health;
     [SerializeField] private GameObject _detectorObject;
     [SerializeField] private ParticleSystem _explosionEffect;
-    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioSource _baseSound;
     [SerializeField] private AudioClip _explosionSound;
+    [SerializeField] private int _health;
 
     private bool _isDead;
-
-    private void Start()
-    {
-        _audioSource = GetComponent<AudioSource>();
-        _explosionEffect = GetComponentInChildren<ParticleSystem>();
-    }
+    private WaitForSeconds _sleep =  new WaitForSeconds(0.3f);
+    private Coroutine _activeCorutine = null;
 
     public void TakeDamage(int damage)
     {
@@ -24,21 +23,30 @@ public class Enemy : MonoBehaviour,IDamagable
 
             if (_health <= 0)
             {
-                StartCoroutine(Die());
+                if (_activeCorutine != null)
+                {
+                    StopCoroutine(_activeCorutine);
+                }
+
+                _activeCorutine = StartCoroutine(ExsplotionAndDie());
                 _isDead = true;
             }
         }
     }
 
-    private IEnumerator Die()
+    private void Start()
     {
-        _audioSource.clip = _explosionSound;
-        _explosionEffect.Play();
-        _audioSource.Play();
-        yield return new WaitForSeconds(0.3f);
-        _explosionEffect.Stop();
-        //yield return new WaitForSeconds(0.1f);
+        _baseSound = GetComponent<AudioSource>();
+        _explosionEffect = GetComponentInChildren<ParticleSystem>();
+    }
 
+    private IEnumerator ExsplotionAndDie()
+    {
+        _baseSound.clip = _explosionSound;
+        _explosionEffect.Play();
+        _baseSound.Play();
+        yield return _sleep;
+        _explosionEffect.Stop();
         _detectorObject.SetActive(false);
     }
 }

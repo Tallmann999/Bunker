@@ -1,20 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class Akm : Weapon
 {
-    [SerializeField] private int _currentMagazineBulletsCount;
-    [SerializeField] private int _maxBullet;
     [SerializeField] private int _magazineSize;
     [SerializeField] private float _reloadLastTime;
-     
 
-    private void Start()
+    public override void AddAmmoBox(int ammoCount)
     {
-        MaxBullet = _maxBullet;
-        ÑurrentMagazineBulletsCount = _magazineSize;
-        AudioSource = GetComponent<AudioSource>();
+        MaxBullet = MaxBullet + ammoCount;
     }
 
     public override void Reload()
@@ -35,7 +29,7 @@ public class Akm : Weapon
                 {
                     remainBulletCount = _magazineSize - ÑurrentMagazineBulletsCount;
 
-                    if (MaxBullet >= remainBulletCount)
+                    if (MaxBullet > remainBulletCount)
                     {
                         MaxBullet -= remainBulletCount;
                         AudioSource.PlayOneShot(Reloading);
@@ -59,7 +53,7 @@ public class Akm : Weapon
         }
         else
         {
-            Debug.Log("Ïàòðîíû êîí÷èëèñü");
+            AudioSource.PlayOneShot(EmptyMagazine);
         }
     }
 
@@ -71,17 +65,21 @@ public class Akm : Weapon
             CreateSleeve();
             Bullet bullet = Instantiate(Prefab, ShootPointPosition.position, transform.rotation);
             ÑurrentMagazineBulletsCount--;
-
         }
         else
         {
             Reload();
         }
-
     }
+
+    private void Start()
+    {
+        AudioSource = GetComponent<AudioSource>();
+    }
+
     private void CreateSleeve()
     {
-       Sleeve sleeve = Instantiate(BulletTipsPrefabs, DropTips.position, transform.rotation);
+        Sleeve sleeve = Instantiate(BulletTipsPrefabs, DropTips.position, transform.rotation);
         AudioSource.PlayOneShot(SleeveDrop);
     }
 }

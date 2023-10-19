@@ -4,15 +4,15 @@ public class LightInteract : MonoBehaviour
 {
     [SerializeField] private Light _activeLight;
     [SerializeField] private ParticleSystem _explosionEffect;
+    [SerializeField] private AudioSource _baseSound;
     [SerializeField] private AudioClip _lampExsplosionSound;
-    [SerializeField] private AudioSource _lampSound;
 
     private bool _isPlay = false;
 
     private void Start()
     {
         _explosionEffect = GetComponent<ParticleSystem>();
-        _lampSound = GetComponent<AudioSource>();
+        _baseSound = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -22,8 +22,8 @@ public class LightInteract : MonoBehaviour
             _explosionEffect.Play();
             _activeLight.intensity = 0;
             _isPlay = true;
-            _lampSound.clip = _lampExsplosionSound;
-            _lampSound.Play();
+            _baseSound.clip = _lampExsplosionSound;
+            _baseSound.Play();
         }
     }
 }

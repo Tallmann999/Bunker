@@ -2,9 +2,10 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(AudioSource))]
 public class DieImageActivation : MonoBehaviour
 {
-    [SerializeField] private AudioSource _baseBackgroundSound;
+    [SerializeField] private AudioSource _baseSound;
     [SerializeField] private AudioClip _mainSound;
     [SerializeField] private AudioClip _dieScreenSound;
     [SerializeField] private Player _player;
@@ -16,7 +17,9 @@ public class DieImageActivation : MonoBehaviour
 
     public void OnRestartButton()
     {
-        SceneManager.LoadScene("Level-02-Bunker");
+        const string Level02 = "Level-02-Bunker";
+
+        SceneManager.LoadScene(Level02);
         Time.timeScale = 1;
     }
 
@@ -27,9 +30,9 @@ public class DieImageActivation : MonoBehaviour
 
     private void Start()
     {
-        _baseBackgroundSound = GetComponent<AudioSource>();
-        _baseBackgroundSound.clip = _mainSound;
-        _baseBackgroundSound.Play();
+        _baseSound = GetComponent<AudioSource>();
+        _baseSound.clip = _mainSound;
+        _baseSound.Play();
         _dieScreen.alpha = 0;
         _restartButton.alpha = 0;
         _exitButton.alpha = 0;
@@ -57,13 +60,12 @@ public class DieImageActivation : MonoBehaviour
 
     private IEnumerator MainScreenChange(bool status)
     {
-
         if (status)
         {
-            _baseBackgroundSound.clip = _mainSound;
-            _baseBackgroundSound.Stop();
-            _baseBackgroundSound.clip = _dieScreenSound;
-            _baseBackgroundSound.Play();
+            _baseSound.clip = _mainSound;
+            _baseSound.Stop();
+            _baseSound.clip = _dieScreenSound;
+            _baseSound.Play();
 
             _dieScreen.alpha = 1;
             _restartButton.alpha = 1;
@@ -72,8 +74,8 @@ public class DieImageActivation : MonoBehaviour
         }
         else
         {
-            _baseBackgroundSound.clip = _mainSound;
-            _baseBackgroundSound.Play();
+            _baseSound.clip = _mainSound;
+            _baseSound.Play();
             yield return null;
         }
     }

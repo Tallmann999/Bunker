@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +7,7 @@ public class HealthBarChange : MonoBehaviour
     [SerializeField] private Slider _healthBarSlider;
     [SerializeField] private Player _player;
 
-    private Coroutine _activeCoroutine;
+    private Coroutine _activeCoroutine = null;
     private float _stepSize = 0.5f;
     private float _maxHealhValue;
 
